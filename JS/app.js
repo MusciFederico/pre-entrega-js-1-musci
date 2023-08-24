@@ -1,41 +1,35 @@
+const colores = [
+    { nombre: 'rojo', displayName: 'Rojo intenso' },
+    { nombre: 'amarillo', displayName: 'Amarillo brillante' },
+    { nombre: 'negro', displayName: 'Negro elegante' },
+    { nombre: 'azul', displayName: 'Azul profundo' },
+    { nombre: 'blanco', displayName: 'Blanco clásico' },
+    { nombre: 'gris', displayName: 'Gris moderno' },
+    { nombre: 'beige', displayName: 'Beige suave' }
+];
+
+let continuar = true;
+
 function elegirColor(nombreColor) {
-    let color = prompt('¿Qué color de sillón quiere comprar como ' + nombreColor + '? \nRojo \nAmarillo \nNegro \nAzul \nBlanco \nGris \nBeige').toLowerCase();
-    switch (color) {
-        case 'rojo':
-            return 'rojo';
-            break
-        case 'amarillo':
-            return 'amarillo';
-            break
-        case 'negro':
-            return 'negro';
-            break
-        case 'azul':
-            return 'azul';
-            break
-        case 'blanco':
-            return 'blanco';
-            break
-        case 'gris':
-            return 'gris';
-            break
-        case 'beige':
-            return 'beige';
-            break
-        default:
-            alert('Color no válido');
-            return elegirColor(nombreColor);
+    let colorInput = prompt(`¿Qué ${nombreColor} de sillón quiere comprar?\n${colores.map(color => color.displayName).join('\n')}`).toLowerCase();
+
+    const colorSeleccionado = colores.find(index => index.nombre === colorInput || index.displayName.toLowerCase() === colorInput);
+
+    if (colorSeleccionado) {
+        return colorSeleccionado.nombre;
+    } else {
+        alert('Color no válido');
+        return elegirColor(nombreColor);
     }
 }
 
-let continuar = true;
 
 while (continuar) {
     let eleccion = prompt('Bienvenido a Himolla: ¿Quiere continuar con su compra?\nSi = 1\nNo = 2');
     if (eleccion === '1') {
         let colorPrincipal = elegirColor('color principal');
         let colorSecundario = elegirColor('color secundario');
-        alert('Has elegido ' + colorPrincipal + ' y ' + colorSecundario + ' para tu sillon');
+        alert(`Has elegido ${colores.find(c => c.nombre === colorPrincipal).displayName} y ${colores.find(index => index.nombre === colorSecundario).displayName} para tu sillón`);
         continuar = false;
     } else if (eleccion === '2') {
         alert('Gracias por visitar Himolla');
